@@ -1,0 +1,10 @@
+.thumbnail .description{
+	color: aqua;
+}
+
+.thumbnail img{
+	max-height: 150px;
+}
+.navbar-light{
+	background-color: aqua;
+}
