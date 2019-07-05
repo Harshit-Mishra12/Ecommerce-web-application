@@ -109,7 +109,7 @@ footer a {
                             </div>
                             <a class="btn btn-success btn-sm ml-3" href="cart.html">
                                 <i class="fa fa-shopping-cart"></i> Cart
-                                <span class="badge badge-light">3</span>
+                                <span class="badge badge-light"><%= session.cart.totalQty  %></span>
                             </a>
                         </form>
                     </div>
@@ -208,7 +208,7 @@ footer a {
                               <a href="/"> <button class="btn btn-block btn-light">Continue Shopping</button></a> 
                             </div>
                             <div class="col-sm-12 col-md-6 text-right">
-                                <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                                <a href="/checkout" class="btn btn-lg btn-block btn-success text-uppercase">Checkout</a>
                             </div>
                         </div>
                     </div>
