@@ -1,4 +1,6 @@
 var Product=require('../models/product');
+var numLEN=require('../models/totalnum');
+
 mongoose=require("mongoose");
 // express = require('express');
 // var app = express();
@@ -88,9 +90,18 @@ var products=[
 // function exit(){
 // 	mongoose.disconnect();
 // }
+var x=products.length ;
+// console.log(x);
+
+var qty=[
+		new numLEN({ 
+         totalProducts:x,
+         
+		}) ];
+		
 
 Product.create(products, function(err,NewlyCreated){
-        
+        // console.log(products);
         if (err) {
             console.log(err);
 
@@ -99,4 +110,19 @@ Product.create(products, function(err,NewlyCreated){
         //  res.redirect("/campgrounds");   
         // }
      });
+
+numLEN.create(qty, function(err,NewlyCreatedProduct){
+        // console.log(qty);
+        // console.log("check point");
+        if (err) {
+            console.log(err);
+
+        }
+        // else{
+        //  res.redirect("/campgrounds");   
+        // }
+     });
+
+
+
      

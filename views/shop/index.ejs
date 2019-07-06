@@ -227,7 +227,10 @@ body{
 					
 					</form>
 					<div style="padding: 10px" >
-			<h3>Revp Flat45 <span style="color:aqua"></span>  items</h1></br>
+			<h3>Revp Flat45 </h3><div id="totalproduct1"> 
+				<h2 style="height: 20px;width:20px;align-items: center;color: aqua" id="totalproduct" >
+				</h2> </div> 
+			<h1>items</h1></br>
 		   <span>Filters</span> <span  style="margin-left: 200px"> <button type="button" class="uncheck">Clear</button></span>
 			</div>
 				</div>
@@ -462,6 +465,32 @@ itemToClone.children(':first-child').clone()
     });
 				});
 				</script>
+					<script>
+								$(document).ready(function(){
+									
+                            console.log("test click huha kya");
+						//   var id=$("#idsend").text();
+						  
+						  $.ajax({
+										url: '/total',
+										method: 'GET',
+										contentType: 'application/json',
+									      
+										success: function(response) {
+											console.log('check kr be');
+                                       console.log(JSON.stringify(response));;
+
+											
+									//    alert("Value: " + response);
+											$("#totalproduct").text(response);
+											
+										
+
+										}
+									});
+						 
+						});
+							</script>
 				<script>
 						$(document).ready(function(){
 						  $(".cart").click(function(){
@@ -473,7 +502,7 @@ itemToClone.children(':first-child').clone()
 										url: '/add-to-cart/' + id,
 										method: 'PUT',
 										contentType: 'application/json',
-									
+									      
 										success: function(response) {
 											console.log('success');
                                        console.log(JSON.stringify(response));;

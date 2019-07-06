@@ -6,21 +6,24 @@ var Cart=require('../models/cart');
 //var csrfProtection=csrf();
 
 var Product =require('../models/product');
+var numLEN =require('../models/totalnum');
 
 //router.use(csrfProtection);
 
 
 router.get("/",function(req,res){
-
+console.log("baaaaaaaaad");
 	 if(!req.user){
 	// console.log("baaaaaaaaad");
-	}
-    
+	}  
 		   var successMsg=req.flash('success')[0];
 		// res.render("campgrounds.ejs",{campgrounds:campgrounds});
 
+
 		Product.find({},function(err,allCampgrounds){
           allCampgrounds.sort((a, b) => (a.price < b.price) ? 1 : -1)
+
+
 		if(err){
 		    console.log(err);
 		}
@@ -32,6 +35,32 @@ router.get("/",function(req,res){
 
 
 		});
+
+});
+
+router.get("/total",function(req,res){
+      console.log(req.body.test);
+      console.log("value k kya seen hai bhai");
+	 if(!req.user){
+	// console.log("baaaaaaaaad");
+	}
+    
+						var a;
+						
+						var query = {_id:'5d21256b00279784d0d56dc3'};
+							numLEN.find(query,{totalProducts:1}).exec(function(err, result){
+					      if(err) {
+					      	return next(err);
+					      }
+					      else{
+					       a = result[0].totalProducts;
+					      
+					      console.log("bad ass");
+					      }
+					      console.log(a);
+                           res.send(a+"");
+					    });
+						 
 
 });
 router.post("/check",function(req,res){
@@ -148,7 +177,7 @@ router.post("/check",function(req,res){
 router.put('/add-to-cart/:id',function(req,res,next){
      // console.log("add to cart nahin huha kya");
     var productId=req.params.id;
-    console.log(productId);
+    // console.log(productId);
     var cart=new Cart(req.session.cart ? req.session.cart:{});
        
     Product.findById(productId,function(err,product){
@@ -178,7 +207,7 @@ router.get('/shopping-cart',function(req,res,next){
    } 
    var cart = new Cart(req.session.cart);
    var test= cart.generateArray();
-   console.log(test);
+   // console.log(test);
    res.render('shop/shopping-cart.ejs',{products:cart.generateArray(),totalPrice:cart.totalPrice,checkUser:req.user});
 
 });
