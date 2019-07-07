@@ -39,8 +39,7 @@ console.log("baaaaaaaaad");
 });
 
 router.get("/total",function(req,res){
-      console.log(req.body.test);
-      console.log("value k kya seen hai bhai");
+     
 	 if(!req.user){
 	// console.log("baaaaaaaaad");
 	}
@@ -55,19 +54,19 @@ router.get("/total",function(req,res){
 					      else{
 					       a = result[0].totalProducts;
 					      
-					      console.log("bad ass");
+					    
 					      }
-					      console.log(a);
+					     
                            res.send(a+"");
 					    });
 						 
 
 });
 router.post("/check",function(req,res){
-      // console.log("oooooooooooooooo");
-      //  console.log(req.body.brand);
+      console.log("oooooooooooooooo");
+       console.log(req.body.brand);
 
-      // console.log(req.body.title);
+      console.log(req.body.title);
       var arr=req.body.brand;
       var arr2=req.body.title;
  //   console.log(arr[0]);   
@@ -154,7 +153,7 @@ router.post("/check",function(req,res){
 			 if(flag==1  && temp==2)
       {
 
-    //   	console.log("yahan pahuche??part3")
+      	console.log("yahan pahuche??part3")
   		// console.log(req.body.title);
 		 Product.find({},function(err,allCampgrounds){
       
@@ -176,8 +175,8 @@ router.post("/check",function(req,res){
 
 router.put('/add-to-cart/:id',function(req,res,next){
      // console.log("add to cart nahin huha kya");
-    var productId=req.params.id;
-    // console.log(productId);
+    // var productId=req.params.id;
+    console.log(productId);
     var cart=new Cart(req.session.cart ? req.session.cart:{});
        
     Product.findById(productId,function(err,product){
@@ -188,7 +187,7 @@ router.put('/add-to-cart/:id',function(req,res,next){
          }
          cart.add(product, product.id);
          req.session.cart=cart;
-        //  console.log(req.session.cart);
+         // console.log(req.session.cart);
         // console.log("total check kro bhaiya ji");
         // console.log(cart.totalQty);
          // res.redirect('/check');
@@ -203,13 +202,17 @@ router.get('/shopping-cart',function(req,res,next){
     
 
    if (!req.session.cart) {
-   	return res.render('shop/shopping-cart.ejs',{products:null});
+   	
+   	// return res.render('shop/shoppingcartnull.ejs',{products:null});
+   	var x="Sorry! please add items to cart";
+   	   res.send(x+"");
    } 
+   else{
    var cart = new Cart(req.session.cart);
    var test= cart.generateArray();
    // console.log(test);
    res.render('shop/shopping-cart.ejs',{products:cart.generateArray(),totalPrice:cart.totalPrice,checkUser:req.user});
-
+}
 });
 router.get('/checkout',function(req,res,next){
    

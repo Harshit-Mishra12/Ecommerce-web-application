@@ -78,15 +78,20 @@ body{
 							<li class="nav-item" >
 									<span  style="padding-right: 10px;position: absolute;" >
 											
-											<% if(session.cart) { %>
-											<% 	var j= session.cart.totalQty %>
-												<span class="badge" style="background-color: green"><%= session.cart.totalQty %></span>
-											<% } else {%>
-												<span class="badge" style="background-color: red">0</span>
+											<% if(session.cart==null) { %>
+											
+											<span class="badge" style="background-color: red">0</span>
+											<% } else if(session.cart.totalQty){%>
+												<% 	var j= session.cart.totalQty %>
+											<%	console.log("green huha"); %>
+												<span class="badge"  style="background-color: green"><%= session.cart.totalQty %></span>
 												<% } %>
 									 </span>
-								<a class="navbar-brand" href="/shopping-cart/" style="color: blue">Shopping-Cart</a>
-									
+									 <% if(session.cart) { %>
+								<a class="navbar-brand"  href="/shopping-cart/" style="color: blue">Shopping-Cart</a>
+								<% } else {%>
+									<a class="navbar-brand" id="press_cart"   style="color: blue;cursor: pointer">Shopping-Cart</a>
+									<% } %>
 									
 							</li>
 							<% if(login){  %>	
@@ -468,7 +473,7 @@ itemToClone.children(':first-child').clone()
 					<script>
 								$(document).ready(function(){
 									
-                            console.log("test click huha kya");
+                         
 						//   var id=$("#idsend").text();
 						  
 						  $.ajax({
@@ -477,7 +482,7 @@ itemToClone.children(':first-child').clone()
 										contentType: 'application/json',
 									      
 										success: function(response) {
-											console.log('check kr be');
+										
                                        console.log(JSON.stringify(response));;
 
 											
@@ -522,10 +527,38 @@ itemToClone.children(':first-child').clone()
 							$(document).ready(function(){
 								
 								$(".uncheck").click(function(){
+									console.log("clear check huha");
 									// Func();
 									$(".bc").prop("checked", false);
 									$(".t1").prop("checked", false);
 									
+														var selected = new Array();
+													var selected2 = new Array();
+													//Reference the CheckBoxes and insert the checked CheckBox value in Array.
+													$("#f1 input[type=checkbox]:checked").each(function () {
+														selected.push(this.value);
+													});
+													$("#f2 input[type=checkbox]:checked").each(function () {
+														selected2.push(this.value);
+													});
+													
+											$.ajax({
+												url:'/check',
+												method: 'POST',
+												
+												contentType: 'application/json',
+												data: JSON.stringify({ brand: selected,title: selected2}),
+												
+												success: function(response) {
+													console.log("clear k response aya");
+													console.log(response);
+													$("#main").remove();
+													$('#main').html('<img src="spinner.gif"> saving...');
+													$("#main1").html(response);
+													
+													// Func();
+												}
+											});
 								});
 								// $(".uncheck").click(function(){
 								// 	$(".t1").prop("checked", false);
@@ -571,35 +604,32 @@ itemToClone.children(':first-child').clone()
 	   </script>
 
 
-// <!-- 						
+<script>
+		$(document).ready(function(){
+		  $("#press_cart").click(function(){
+			console.log("press-cart huha kya");
+		
+		 
+		  $.ajax({
+						url: '/shopping-cart',
+						method: 'GET',
+						contentType: 'application/json',
+						  
+						success: function(response) {
+							console.log('response');
+					  
 
-
-								<script>
-									$(function () {
-										$('.uncheck').click(function( event ) {
-            
-                       console.log("clcik huh")
-            //Display the selected CheckBox values.
-            $.ajax({
-            url:'/check',
-			method: 'POST',
-			
-            contentType: 'application/json',
-			data: JSON.stringify({ brand: [],title:[]}),
-			
-            success: function(response) {
-				console.log(" oooooooooh");
-				console.log(response);
-				$("#main").remove();
-				$("#main1").html(response);
-				
-				Func();
-            }
-		});
-        });
-    });
+							
+					//    alert("Value: " + response);
+					alert(response);
+							
 						
-								</script>
+
+						}
+					});
+		  });
+		});
+		</script>
 
 </body>
 </html>
