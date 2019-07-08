@@ -78,14 +78,13 @@ body{
 							<li class="nav-item" >
 									<span  style="padding-right: 10px;position: absolute;" >
 											
-											<% if(session.cart==null) { %>
-											
-											<span class="badge" style="background-color: red">0</span>
-											<% } else if(session.cart.totalQty){%>
+											<% if(session.cart) { %>
 												<% 	var j= session.cart.totalQty %>
-											<%	console.log("green huha"); %>
-												<span class="badge"  style="background-color: green"><%= session.cart.totalQty %></span>
+												<span class="badge" style="background-color: green"><%= session.cart.totalQty %></span>
+											<% } else {%>
+												<span class="badge" style="background-color: red">0</span>
 												<% } %>
+												
 									 </span>
 									 <% if(session.cart) { %>
 								<a class="navbar-brand"  href="/shopping-cart/" style="color: blue">Shopping-Cart</a>
@@ -532,16 +531,16 @@ itemToClone.children(':first-child').clone()
 									$(".bc").prop("checked", false);
 									$(".t1").prop("checked", false);
 									
-														var selected = new Array();
-													var selected2 = new Array();
-													//Reference the CheckBoxes and insert the checked CheckBox value in Array.
-													$("#f1 input[type=checkbox]:checked").each(function () {
-														selected.push(this.value);
-													});
-													$("#f2 input[type=checkbox]:checked").each(function () {
-														selected2.push(this.value);
-													});
-													
+											var selected = new Array();
+									var selected2 = new Array();
+									//Reference the CheckBoxes and insert the checked CheckBox value in Array.
+									$("#f1 input[type=checkbox]:checked").each(function () {
+										selected.push(this.value);
+									});
+									$("#f2 input[type=checkbox]:checked").each(function () {
+										selected2.push(this.value);
+									});
+									
 											$.ajax({
 												url:'/check',
 												method: 'POST',

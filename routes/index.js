@@ -12,7 +12,7 @@ var numLEN =require('../models/totalnum');
 
 
 router.get("/",function(req,res){
-console.log("baaaaaaaaad");
+// console.log("baaaaaaaaad");
 	 if(!req.user){
 	// console.log("baaaaaaaaad");
 	}  
@@ -63,10 +63,10 @@ router.get("/total",function(req,res){
 
 });
 router.post("/check",function(req,res){
-      console.log("oooooooooooooooo");
-       console.log(req.body.brand);
+      // console.log("oooooooooooooooo");
+      //  console.log(req.body.brand);
 
-      console.log(req.body.title);
+      // console.log(req.body.title);
       var arr=req.body.brand;
       var arr2=req.body.title;
  //   console.log(arr[0]);   
@@ -139,7 +139,7 @@ router.post("/check",function(req,res){
 		else{
 			// console.log(allCampgrounds);
 			if(allCampgrounds[0]==null){
-				  console.log("ismye kuch nahin hai");
+				  // console.log("ismye kuch nahin hai");
 		   res.render("shop/index3.ejs");
 		} 
 		else{
@@ -153,7 +153,7 @@ router.post("/check",function(req,res){
 			 if(flag==1  && temp==2)
       {
 
-      	console.log("yahan pahuche??part3")
+      	// console.log("yahan pahuche??part3")
   		// console.log(req.body.title);
 		 Product.find({},function(err,allCampgrounds){
       
@@ -174,8 +174,8 @@ router.post("/check",function(req,res){
 
 
 router.put('/add-to-cart/:id',function(req,res,next){
-     // console.log("add to cart nahin huha kya");
-    // var productId=req.params.id;
+     console.log("add to cart nahin huha kya");
+    var productId=req.params.id;
     console.log(productId);
     var cart=new Cart(req.session.cart ? req.session.cart:{});
        
